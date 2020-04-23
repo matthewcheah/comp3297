@@ -1,0 +1,37 @@
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+<h1>Add location</h1>
+<a href = "{% url 'patients' %}"> Patients</a>
+
+<form method="POST" >
+
+{% csrf_token %}
+{{ form.as_p }}
+
+<button type="submit">SUBMIT</button>
+</form>
+<h2>View all locations</h2>
+  <table style="width:100%" align="center" >
+      <tr>
+        <th>Location</th>
+        <th>Address</th>
+        <th>X coordinate</th>
+        <th>Y coordinate</th>
+        <th>District</th>
+      </tr>
+      {% for location in location_list %}
+      <tr>
+        <td>{{ location.location_visited }}</td>
+        <td>{{ location.address }}</td>
+        <td>{{ location.x_coord }} </td>
+        <td>{{ location.y_coord }}</td>
+        <td>{{ location.district }}</td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="5">Currently no Data Available</td></tr>
+      {% endfor %}
+  </table>

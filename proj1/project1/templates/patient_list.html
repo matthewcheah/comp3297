@@ -1,0 +1,41 @@
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+
+  <h1 style="float: left">Add patients</h1>
+  <a href = "{% url 'locations' %}"> Locations</a>
+
+<form method="POST">
+
+{% csrf_token %}
+{{ form.as_p }}
+
+<button type="submit">SUBMIT</button>
+</form>
+
+<h1> View all patients </h1>
+  <table style="width:100%" align="center" >
+      <tr>
+        <th>Case number</th>
+        <th>name</th>
+        <th>ID number</th>
+        <th>Date of birth</th>
+        <th>Date confirmed</th>
+        <th> </th>
+      </tr>
+      {% for patient in patient_list %}
+      <tr>
+        <td>{{patient.pk }}</td>
+        <td><a href="{% url 'patient_visit' patient.pk %}">{{ patient.name }}</a></td>
+        <td>{{ patient.ID_number }} </td>
+        <td>{{ patient.date_of_birth}}</td>
+        <td>{{ patient.date_case_confirmed}}</td>
+        <td><button type="button" class="btn btn-default">Edit</button></td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="5">Currently no Data Available</td></tr>
+      {% endfor %}
+  </table>
